@@ -1,5 +1,10 @@
 import { createApp } from "vue";
 import App from "./App.vue";
-import { store, key } from "./store";
+import { store } from "./store";
 
-createApp(App).use(store, key).mount("#app");
+if (!navigator.geolocation) {
+  alert("Tu navegador no soporta la geolocalización");
+  throw new Error("Tu navegador no soporta la geolocalización");
+}
+
+createApp(App).use(store).mount("#app");
