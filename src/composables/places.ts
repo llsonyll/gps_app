@@ -1,9 +1,9 @@
-import { onMounted } from "vue";
+import { computed, onMounted } from "vue";
 import { useStore } from "vuex";
 import { StateInterface } from "../store";
 
 export const usePlacesStore = () => {
-  const store = useStore<StateInterface>();  
+  const store = useStore<StateInterface>();
 
   onMounted(() => {
     if (!store.getters["places/isUserLocationReady"]) {
@@ -12,6 +12,12 @@ export const usePlacesStore = () => {
   });
 
   return {
-      
+    // state
+    isLoading: computed(() => store.state.places.isLoading),
+    userLocation: computed(() => store.state.places.userLocation),
+    // getters
+    isUserLocationReady: computed(
+      () => store.getters["places/isUserLocationReady"]
+    ),
   };
 };
