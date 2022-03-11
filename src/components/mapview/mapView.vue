@@ -9,17 +9,23 @@
         <span> Getting your position </span>
       </div>
     </div>
-    <div v-show="!isLoading" class="map_container" ref="mapElement"></div>
+    <div v-show="!isLoading" class="map_container" ref="mapElement">
+      <location-button />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, onMounted, ref, watch } from "vue";
 import { useMapStore, usePlacesStore } from "../../composables";
+import LocationButton from "../locationButton";
 import Mapboxgl from "mapbox-gl";
 
 export default defineComponent({
   name: "MapView",
+  components: {
+    LocationButton,
+  },
   setup() {
     const { isLoading, userLocation, isUserLocationReady } = usePlacesStore();
     const { setMap } = useMapStore();
@@ -85,7 +91,7 @@ export default defineComponent({
   background-color: rgba(0, 0, 0, 0.8);
 }
 
-.map_container {
+.map_container {  
   position: fixed;
   top: 0;
   left: 0;
